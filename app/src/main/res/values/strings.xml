@@ -10,4 +10,11 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Sign in</string>
+    <string name="welcome_to_the_job_hunting_application_n_feel_free_to_have_a_look_around_to_interact_with_other_people_and_companies_you_ll_have_to_sign_up_which_is_free">Welcome to the job hunting application! \n Feel free to have a look around. To interact with other people and companies, you\'ll have to sign up, which is free!</string>
+    <string name="profile">Profile</string>
+    <string name="media">Media</string>
+    <string name="job_offers">Job offers</string>
+    <string name="interviews">Interviews</string>
 </resources>

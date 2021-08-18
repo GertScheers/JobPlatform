@@ -3,18 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/grp_logged_in_items"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:icon="@drawable/ic_profile"
+            android:title="@string/profile" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:icon="@drawable/ic_job_offers"
+            android:title="@string/job_offers" />
+        <item
+            android:id="@+id/nav_interviews"
+            android:icon="@drawable/ic_interviews"
+            android:title="@string/interviews"/>
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:title="@string/media" />
+    </group>
+
+    <group
+        android:id="@+id/grp_logged_out_items"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/sign_up"
+            android:icon="@drawable/ic_sign_up"
+            android:title="@string/sign_up" />
+        <item
+            android:id="@+id/sign_in"
+            android:icon="@drawable/ic_sign_in"
+            android:title="@string/sign_in" />
     </group>
 </menu>
