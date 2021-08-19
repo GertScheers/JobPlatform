@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface InterviewDao {
     @Insert
-    suspend fun insertInterview(interview: Interview)
+    fun insertInterview(interview: Interview)
 
     @Query("SELECT * FROM INTERVIEWS WHERE candidate_id = :candidateId")
     fun getInterviewsForCandidate(candidateId: Int) : Flow<List<Interview>>
