@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.data
 
+import android.app.Application
+import com.example.myapplication.application.JobHuntApplication
 import com.example.myapplication.ui.data.model.LoggedInUser
 import java.io.IOException
 
@@ -11,6 +13,7 @@ class LoginDataSource {
     fun login(username: String, password: String): Result<LoggedInUser> {
         try {
             // TODO: handle loggedInUser authentication
+
             val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")
             return Result.Success(fakeUser)
         } catch (e: Throwable) {

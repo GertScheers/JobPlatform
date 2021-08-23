@@ -21,7 +21,8 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_confirm_password">Confirm password</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_register">Register an account</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>
     <string name="invalid_username">Not a valid username</string>
@@ -29,4 +30,17 @@
     <string name="login_failed">"Login failed"</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="company">Company</string>
+    <string name="candidate">Candidate</string>
+    <string name="user_type">User type:</string>
+    <string name="err_msg_enter_first_name">Enter first name</string>
+    <string name="err_msg_enter_last_name">Enter last name</string>
+    <string name="err_msg_enter_email">Enter email</string>
+    <string name="err_msg_enter_password">Enter password</string>
+    <string name="err_msg_confirm_password">Confirm password</string>
+    <string name="err_msg_passwords_no_match">Passwords don\'t match</string>
+    <string name="err_msg_enter_company_name">Enter a company name</string>
+    <string name="company_name">Company name</string>
 </resources>

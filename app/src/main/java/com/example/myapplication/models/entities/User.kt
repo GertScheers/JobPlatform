@@ -10,6 +10,7 @@ data class User(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "first_name") val firstName: String,
     @ColumnInfo(name = "last_name") val lastName: String,
+    @ColumnInfo(name = "company_name") val companyName: String,
     @ColumnInfo val type: Int,
     @ColumnInfo val resume: String,
     @ColumnInfo val email: String,
@@ -23,7 +24,7 @@ enum class UserType {
 
 class UserTypeIntConverter {
     @TypeConverter
-    fun IntToUserType(int: Int): UserType {
+    fun intToUserType(int: Int): UserType {
         when (int) {
             0 -> return UserType.Company
             1 -> return UserType.Candidate
@@ -32,10 +33,10 @@ class UserTypeIntConverter {
     }
 
     @TypeConverter
-    fun UserTypeToInt(userType: UserType): Int {
-        when (userType) {
-            UserType.Company -> return 0
-            UserType.Candidate -> return 1
+    fun userTypeToInt(userType: UserType): Int {
+        return when (userType) {
+            UserType.Company -> 0
+            UserType.Candidate -> 1
         }
     }
 }

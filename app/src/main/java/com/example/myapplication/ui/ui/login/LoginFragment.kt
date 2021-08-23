@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.FragmentLoginBinding
 
 import com.example.myapplication.R
@@ -33,8 +34,8 @@ class LoginFragment : Fragment() {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
-
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,6 +45,7 @@ class LoginFragment : Fragment() {
         val usernameEditText = binding.username
         val passwordEditText = binding.password
         val loginButton = binding.login
+        val registerButton = binding.btnRegister
         val loadingProgressBar = binding.loading
 
         loginViewModel.loginFormState.observe(viewLifecycleOwner,
@@ -92,6 +94,7 @@ class LoginFragment : Fragment() {
         passwordEditText.addTextChangedListener(afterTextChangedListener)
         passwordEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+                findNavController().navigate(LoginFragmentDirections.actionNavLoginToNavHome())
                 loginViewModel.login(
                     usernameEditText.text.toString(),
                     passwordEditText.text.toString()
@@ -102,11 +105,28 @@ class LoginFragment : Fragment() {
 
         loginButton.setOnClickListener {
             loadingProgressBar.visibility = View.VISIBLE
-            loginViewModel.login(
+
+            var loginOk = loginViewModel.login(
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
             )
+
+            if (loginOk)
+                findNavController().navigate(LoginFragmentDirections.actionNavLoginToNavHome())
+            else {
+                Toast.makeText(
+                    requireActivity(),
+                    "Something went wrong!",
+                    Toast.LENGTH_LONG).show()
+            }
+
         }
+
+        registerButton.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionNavLoginToNavRegister())
+        }
+
+
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {

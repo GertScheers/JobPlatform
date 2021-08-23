@@ -11,15 +11,19 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/register_form"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="spread_inside">
 
             <FrameLayout
                 android:id="@+id/fl_profile_picture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/_16sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -29,11 +33,9 @@
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_80sdp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="32dp"
-                    app:layout_constraintBottom_toTopOf="@id/til_first_name"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/iv_add_profile_picture"
@@ -42,6 +44,42 @@
                     android:layout_gravity="end|bottom"
                     android:src="@drawable/ic_photo" />
             </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_user_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/user_type"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fl_profile_picture" />
+
+            <RadioGroup
+                android:id="@+id/rg_user_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_24sdp"
+                android:layout_marginEnd="@dimen/_24sdp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/tv_user_type">
+
+                <RadioButton
+                    android:id="@+id/radio_candidate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:checked="true"
+                    android:text="@string/candidate" />
+
+                <RadioButton
+                    android:id="@+id/radio_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/company" />
+            </RadioGroup>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_first_name"
@@ -52,7 +90,7 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:hint="@string/first_name"
-                app:layout_constraintTop_toBottomOf="@+id/fl_profile_picture">
+                app:layout_constraintTop_toBottomOf="@id/rg_user_type">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_first_name"
@@ -71,10 +109,30 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:hint="@string/last_name"
-                app:layout_constraintTop_toBottomOf="@+id/til_first_name">
+                app:layout_constraintTop_toBottomOf="@id/til_first_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_last_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="@dimen/_16sdp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_company_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:hint="@string/company_name"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/til_last_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_company_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -90,13 +148,13 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:hint="@string/prompt_email"
-                app:layout_constraintTop_toBottomOf="@id/til_last_name">
+                app:layout_constraintTop_toBottomOf="@id/til_company_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
+                    android:inputType="textEmailAddress"
                     android:textSize="@dimen/_16sdp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -139,13 +197,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:id="@+id/btn_register"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/til_confirm_password" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginEnd="@dimen/_24sdp"
+                android:text="@string/register"
+                app:layout_constraintTop_toBottomOf="@id/til_confirm_password"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

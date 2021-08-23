@@ -29,7 +29,7 @@ abstract class JobHuntRoomDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     JobHuntRoomDatabase::class.java,
-                    "fav_dish_database"
+                    "jobhunt_database"
                 ).fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
