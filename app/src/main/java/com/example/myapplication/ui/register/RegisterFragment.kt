@@ -13,12 +13,13 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.application.JobHuntApplication
+import com.example.myapplication.databinding.FragmentConnectBinding
 import com.example.myapplication.databinding.FragmentRegisterBinding
 import com.example.myapplication.models.entities.User
 
 class RegisterFragment : Fragment() {
 
-    private var _binding: FragmentRegisterBinding? = null
+    private lateinit var _binding: FragmentRegisterBinding
 
     private val mRegisterViewModel: RegisterViewModel by viewModels {
         RegisterViewModelFactory((requireActivity().application as JobHuntApplication).userRepository)
@@ -33,7 +34,7 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
-        return binding.root
+        return _binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,7 +72,7 @@ class RegisterFragment : Fragment() {
             val lastName: String
             val companyName: String
 
-            if(userType == 0) {
+            if (userType == 0) {
                 firstName = binding.etFirstName.text.toString()
                 lastName = binding.etLastName.text.toString()
                 companyName = ""
@@ -143,6 +144,8 @@ class RegisterFragment : Fragment() {
                         firstName,
                         lastName,
                         companyName,
+                        "",
+                        null,
                         userType,
                         "",
                         email,
@@ -161,10 +164,4 @@ class RegisterFragment : Fragment() {
             }
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }

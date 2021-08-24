@@ -10,8 +10,8 @@ import com.example.myapplication.models.database.jobOffer.JobOfferDao
 import com.example.myapplication.models.database.user.UserDao
 import com.example.myapplication.models.entities.*
 
-@Database(entities = [User::class, JobOffer::class, Interview::class], version = 1)
-@TypeConverters(StatusToIntConverter::class, UserTypeIntConverter::class)
+@Database(entities = [User::class, JobOffer::class, Interview::class], version = 2)
+@TypeConverters(StatusToIntConverter::class, UserTypeIntConverter::class, DateConverter::class)
 abstract class JobHuntRoomDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao

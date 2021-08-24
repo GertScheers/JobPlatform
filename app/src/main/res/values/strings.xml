@@ -43,4 +43,6 @@
     <string name="err_msg_passwords_no_match">Passwords don\'t match</string>
     <string name="err_msg_enter_company_name">Enter a company name</string>
     <string name="company_name">Company name</string>
+    <string name="connect">Connect</string>
+    <string name="profile_picture">profilePicture</string>
 </resources>
