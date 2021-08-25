@@ -13,9 +13,9 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: User)
 
-    @Query("SELECT * FROM JOB_PLATFORM_USERS WHERE type = :userType")
-    fun getAllCompanies(userType: UserType = UserType.Company): Flow<List<User>>
+    @Query("SELECT * FROM JOB_PLATFORM_USERS")
+    fun getAllCompanies(): Flow<List<User>>
 
-    @Query("SELECT * FROM JOB_PLATFORM_USERS WHERE type = :userType")
-    fun getAllCandidates(userType: UserType = UserType.Candidate): Flow<List<User>>
+    @Query("SELECT * FROM JOB_PLATFORM_USERS")
+    fun getAllCandidates(): Flow<List<User>>
 }
