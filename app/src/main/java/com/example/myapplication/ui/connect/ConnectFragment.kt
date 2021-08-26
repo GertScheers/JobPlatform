@@ -1,14 +1,15 @@
 package com.example.myapplication.ui.connect
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.R
 import com.example.myapplication.application.JobHuntApplication
 import com.example.myapplication.databinding.FragmentConnectBinding
 import com.example.myapplication.ui.adapters.CandidateAdapter
@@ -38,13 +39,29 @@ class ConnectFragment : Fragment() {
         val candidatesAdapter = CandidateAdapter(this)
 
         _binding.rvCandidates.adapter = candidatesAdapter
+        _binding.rvCandidates.addItemDecoration(MarginItemDecoration(
+            resources.getDimension(R.dimen._5sdp).toInt()))
 
         connectViewModel.candidates.observe(viewLifecycleOwner) { candidates ->
             candidates.let {
                 if (it.isNotEmpty()) {
-                    candidatesAdapter.candidateslist(it)
+                    candidatesAdapter.candidatesList(it)
                 }
             }
+        }
+    }
+}
+
+class MarginItemDecoration(private val spaceHeight: Int) : RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(outRect: Rect, view: View,
+                                parent: RecyclerView, state: RecyclerView.State) {
+        with(outRect) {
+            if (parent.getChildAdapterPosition(view) == 0 || parent.getChildAdapterPosition(view) == 1) {
+                top = spaceHeight
+            }
+            left =  spaceHeight
+            right = spaceHeight
+            bottom = spaceHeight
         }
     }
 }

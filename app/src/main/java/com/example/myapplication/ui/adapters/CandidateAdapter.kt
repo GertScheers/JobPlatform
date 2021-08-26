@@ -13,7 +13,9 @@ class CandidateAdapter(private val fragment: Fragment) :
     private var candidates: List<User> = listOf()
 
     class ViewHolder(view: ItemCandidateLayoutBinding) : RecyclerView.ViewHolder(view.root) {
-
+        val tvName = view.tvUserName
+        val ivPicture = view.ivProfilePicture
+        val tvAge = view.tvUserAge
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,13 +29,15 @@ class CandidateAdapter(private val fragment: Fragment) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //TODO Implement setting the image + click handler
+        val user = candidates[position]
+        holder.tvName.text = user.displayName
     }
 
     override fun getItemCount(): Int {
         return candidates.size
     }
 
-    fun candidateslist(list: List<User>) {
+    fun candidatesList(list: List<User>) {
         candidates = list
         notifyDataSetChanged()
     }

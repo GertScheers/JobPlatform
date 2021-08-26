@@ -13,12 +13,17 @@ data class User(
     @ColumnInfo(name = "last_name") val lastName: String,
     @ColumnInfo(name = "company_name") val companyName: String,
     @ColumnInfo val city: String,
-    @ColumnInfo(name="date_of_birth") val dateOfBirth: Long?,
+    @ColumnInfo(name = "date_of_birth") val dateOfBirth: Long?,
     @ColumnInfo val type: Int,
     @ColumnInfo val resume: String,
     @ColumnInfo val email: String,
-    @ColumnInfo val password: String
-) : Parcelable
+    @ColumnInfo val password: String,
+) : Parcelable {
+    @Ignore
+    val displayName: String = if (type == 0) {
+        "$firstName $lastName"
+    } else companyName
+}
 
 enum class UserType {
     Company,
