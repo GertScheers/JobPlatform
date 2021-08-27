@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.application.JobHuntApplication
 import com.example.myapplication.databinding.FragmentConnectBinding
+import com.example.myapplication.models.entities.User
 import com.example.myapplication.ui.adapters.CandidateAdapter
 
 class ConnectFragment : Fragment() {
@@ -49,6 +51,10 @@ class ConnectFragment : Fragment() {
                 }
             }
         }
+    }
+
+    fun showProfileDetails(user: User) {
+        findNavController().navigate(ConnectFragmentDirections.actionNavConnectToProfileDetails(user))
     }
 }
 

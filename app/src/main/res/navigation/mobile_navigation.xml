@@ -9,13 +9,21 @@
         android:id="@+id/nav_connect"
         android:name="com.example.myapplication.ui.connect.ConnectFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_connect" />
+        tools:layout="@layout/fragment_connect" >
+        <action
+            android:id="@+id/action_nav_connect_to_profile_details"
+            app:destination="@id/nav_profile_details" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.myapplication.ui.profile.ProfileFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/nav_profile_details"
+        android:name="com.example.myapplication.ui.profile.ProfileDetailsFragment"
+        android:label="@string/menu_profile_details"
+        tools:layout="@layout/fragment_profile_details">
+        <argument
+            android:name="profileDetails"
+            app:argType="com.example.myapplication.models.entities.User"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"

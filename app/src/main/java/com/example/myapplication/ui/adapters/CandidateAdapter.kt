@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ItemCandidateLayoutBinding
 import com.example.myapplication.models.entities.User
+import com.example.myapplication.ui.connect.ConnectFragment
 
 class CandidateAdapter(private val fragment: Fragment) :
     RecyclerView.Adapter<CandidateAdapter.ViewHolder>() {
@@ -31,6 +32,11 @@ class CandidateAdapter(private val fragment: Fragment) :
         //TODO Implement setting the image + click handler
         val user = candidates[position]
         holder.tvName.text = user.displayName
+
+        holder.itemView.setOnClickListener {
+            if (fragment is ConnectFragment)
+                fragment.showProfileDetails(user)
+        }
     }
 
     override fun getItemCount(): Int {

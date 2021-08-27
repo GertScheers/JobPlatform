@@ -11,7 +11,8 @@
         <entry key="..\:/KotlinApps/JobPlatform/app/src/main/res/layout/fragment_gallery.xml" value="0.36666666666666664" />
         <entry key="..\:/KotlinApps/JobPlatform/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
         <entry key="..\:/KotlinApps/JobPlatform/app/src/main/res/layout/fragment_login.xml" value="0.35260416666666666" />
-        <entry key="..\:/KotlinApps/JobPlatform/app/src/main/res/layout/fragment_profile.xml" value="0.2015625" />
+        <entry key="..\:/KotlinApps/JobPlatform/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/KotlinApps/JobPlatform/app/src/main/res/layout/fragment_profile_details.xml" value="0.36666666666666664" />
         <entry key="..\:/KotlinApps/JobPlatform/app/src/main/res/layout/fragment_register.xml" value="0.25" />
         <entry key="..\:/KotlinApps/JobPlatform/app/src/main/res/layout/fragment_slideshow.xml" value="0.36666666666666664" />
         <entry key="..\:/KotlinApps/JobPlatform/app/src/main/res/layout/item_candiate_layout.xml" value="0.2015625" />

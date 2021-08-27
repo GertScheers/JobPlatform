@@ -30,7 +30,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
@@ -106,7 +106,7 @@ class LoginFragment : Fragment() {
         loginButton.setOnClickListener {
             loadingProgressBar.visibility = View.VISIBLE
 
-            var loginOk = loginViewModel.login(
+            val loginOk = loginViewModel.login(
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
             )
