@@ -1,7 +1,5 @@
 package com.example.myapplication.ui.data
 
-import android.app.Application
-import com.example.myapplication.application.JobHuntApplication
 import com.example.myapplication.ui.data.model.LoggedInUser
 import java.io.IOException
 

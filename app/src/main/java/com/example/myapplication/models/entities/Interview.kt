@@ -25,7 +25,7 @@ enum class InterviewStatus {
 
 class StatusToIntConverter {
     @TypeConverter
-    fun IntToStatus(int: Int): InterviewStatus {
+    fun intToStatus(int: Int): InterviewStatus {
         when (int) {
             0 -> return InterviewStatus.Open
             1 -> return InterviewStatus.Confirmed
@@ -36,7 +36,7 @@ class StatusToIntConverter {
     }
 
     @TypeConverter
-    fun StatusToInt(status: InterviewStatus): Int {
+    fun statusToInt(status: InterviewStatus): Int {
         return when (status) {
             InterviewStatus.Open -> 0
             InterviewStatus.Confirmed -> 1

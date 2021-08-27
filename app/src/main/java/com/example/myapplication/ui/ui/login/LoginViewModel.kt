@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import androidx.navigation.NavController
 import com.example.myapplication.ui.data.LoginRepository
 import com.example.myapplication.ui.data.Result
 

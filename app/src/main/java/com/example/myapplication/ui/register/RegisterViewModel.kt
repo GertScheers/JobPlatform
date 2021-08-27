@@ -3,10 +3,7 @@ package com.example.myapplication.ui.register
 import androidx.lifecycle.*
 import com.example.myapplication.models.database.user.UserRepository
 import com.example.myapplication.models.entities.User
-import com.example.myapplication.models.entities.UserType
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import java.lang.IllegalArgumentException
 
 class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
     fun insert(user: User) = viewModelScope.launch {
