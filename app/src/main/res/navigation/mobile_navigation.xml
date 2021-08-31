@@ -26,6 +26,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_my_profile"
+        android:name="com.example.myapplication.ui.profile.MyProfileFragment"
+        android:label="My Profile"
+        tools:layout="@layout/fragment_my_profile">
+        <argument
+            android:name="myProfile"
+            app:argType="com.example.myapplication.models.entities.User"/>
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.myapplication.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"

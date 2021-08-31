@@ -13,7 +13,6 @@ import com.example.myapplication.databinding.FragmentProfileDetailsBinding
 
 class ProfileDetailsFragment : Fragment() {
 
-    private lateinit var profileViewModel: ProfileDetailsViewModel
     private var _binding: FragmentProfileDetailsBinding? = null
 
     // This property is only valid between onCreateView and
@@ -25,8 +24,6 @@ class ProfileDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        profileViewModel =
-            ViewModelProvider(this).get(ProfileDetailsViewModel::class.java)
 
         _binding = FragmentProfileDetailsBinding.inflate(inflater, container, false)
 
