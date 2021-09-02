@@ -12,7 +12,7 @@ data class User(
     @ColumnInfo(name = "first_name") var firstName: String,
     @ColumnInfo(name = "last_name") var lastName: String,
     @ColumnInfo(name = "company_name") val companyName: String,
-    @ColumnInfo val city: String,
+    @ColumnInfo var city: String,
     @ColumnInfo(name = "date_of_birth") val dateOfBirth: Long?,
     @ColumnInfo val type: Int,
     @ColumnInfo val resume: String,

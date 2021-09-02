@@ -7,19 +7,26 @@ import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.FragmentLoginBinding
 
 import com.example.myapplication.R
+import com.example.myapplication.application.JobHuntApplication
+import com.example.myapplication.ui.connect.ConnectViewModel
+import com.example.myapplication.ui.connect.ConnectViewModelFactory
 
 class LoginFragment : Fragment() {
 
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModels {
+        LoginViewModelFactory((requireActivity().application as JobHuntApplication).userRepository)
+    }
     private var _binding: FragmentLoginBinding? = null
 
     // This property is only valid between onCreateView and
@@ -39,8 +46,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
 
         val usernameEditText = binding.username
         val passwordEditText = binding.password
@@ -62,14 +67,17 @@ class LoginFragment : Fragment() {
                 }
             })
 
-        loginViewModel.loginResult.observe(viewLifecycleOwner,
+            loginViewModel.loginResult.observe(viewLifecycleOwner,
             Observer { loginResult ->
+                Log.i("OBS", "starts")
                 loginResult ?: return@Observer
                 loadingProgressBar.visibility = View.GONE
                 loginResult.error?.let {
+                    Log.i("OBS", "error")
                     showLoginFailed(it)
                 }
                 loginResult.success?.let {
+                    Log.i("OBS", "success")
                     updateUiWithUser(it)
                 }
             })
@@ -106,12 +114,12 @@ class LoginFragment : Fragment() {
         loginButton.setOnClickListener {
             loadingProgressBar.visibility = View.VISIBLE
 
-            val loginOk = loginViewModel.login(
+            loginViewModel.login(
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
             )
 
-            if (loginOk)
+            if (true)
                 findNavController().navigate(LoginFragmentDirections.actionNavLoginToNavHome())
             else {
                 Toast.makeText(
@@ -130,10 +138,14 @@ class LoginFragment : Fragment() {
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
+        Log.i("UPDATE UI", "start")
         val welcome = getString(R.string.welcome) + model.displayName
         // TODO : initiate successful logged in experience
+        Log.i("UPDATE UI", "get appcontext")
         val appContext = context?.applicationContext ?: return
+        Log.i("UPDATE UI", "send message")
         Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
+        Log.i("UPDATE UI", "message sent")
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {

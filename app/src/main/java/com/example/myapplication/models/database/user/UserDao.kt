@@ -12,9 +12,15 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: User)
 
+    @Query("SELECT * FROM JOB_PLATFORM_USERS WHERE email=:email AND password=:password")
+    fun login(email: String, password: String) : List<User>?
+
     @Query("SELECT * FROM JOB_PLATFORM_USERS")
     fun getAllCompanies(): Flow<List<User>>
 
     @Query("SELECT * FROM JOB_PLATFORM_USERS")
     fun getAllCandidates(): Flow<List<User>>
+
+    @Query("SELECT * FROM JOB_PLATFORM_USERS WHERE id=:id")
+    fun getUser(id: String) : User?
 }

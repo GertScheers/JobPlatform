@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -19,7 +20,7 @@ import com.example.myapplication.ui.register.RegisterViewModelFactory
 
 class MyProfileFragment : Fragment() {
     private lateinit var _binding: FragmentMyProfileBinding
-    private lateinit var user: User
+    private var user: User? = null
 
     private val myProfileViewModel: MyProfileViewModel by viewModels {
         MyProfileViewModelFactory((requireActivity().application as JobHuntApplication).userRepository)
@@ -34,18 +35,6 @@ class MyProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMyProfileBinding.inflate(inflater, container, false)
-        user = User(0, "hello", "there", "TestCompany", "TestCity", null, 1, "", "testEmail", "")
-
-        myProfileViewModel.candidates.observe(viewLifecycleOwner) { candidates ->
-            candidates.let {
-                if (it.isNotEmpty()) {
-                    user = it.first()
-                    binding.tvDisplayName.text = user.displayName
-                    binding.tvCity.text = user.city
-                    binding.tvEmail.text = user.email
-                }
-            }
-        }
 
         binding.fabEditProfile.setOnClickListener {
             findNavController().navigate(
@@ -54,6 +43,16 @@ class MyProfileFragment : Fragment() {
                 )
             )
         }
+
+        myProfileViewModel.fullUser.observe(viewLifecycleOwner,
+            { fullUser ->
+                user = fullUser
+                binding.tvDisplayName.text = user?.displayName
+                binding.tvCity.text = user?.city
+                binding.tvEmail.text = user?.email
+            })
+
+        myProfileViewModel.getUser(myProfileViewModel.user?.userId ?: "")
 
         return _binding.root
     }
@@ -66,8 +65,8 @@ class MyProfileFragment : Fragment() {
             .circleCrop()
             .into(binding.ivProfilePicture)
 
-        binding.tvDisplayName.text = user.displayName
-        binding.tvCity.text = user.city
-        binding.tvEmail.text = user.email
+        binding.tvDisplayName.text = user?.displayName
+        binding.tvCity.text = user?.city
+        binding.tvEmail.text = user?.email
     }
 }

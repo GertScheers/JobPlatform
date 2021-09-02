@@ -139,6 +139,7 @@ class RegisterFragment : Fragment() {
                         profile!!.lastName = binding.etLastName.text.toString()
                         profile!!.firstName = binding.etFirstName.text.toString()
                         profile!!.email = binding.etEmail.text.toString()
+                        profile!!.city = binding.etCity.text.toString()
 
                         mRegisterViewModel.insert(profile!!)
 
@@ -183,6 +184,7 @@ class RegisterFragment : Fragment() {
             binding.etLastName.setText(it.lastName)
             binding.etCompanyName.setText(it.companyName)
             binding.etEmail.setText(it.email)
+            binding.etCity.setText(it.city)
             binding.tilPassword.visibility = View.GONE
             binding.tilConfirmPassword.visibility = View.GONE
             if (it.type == 0)
