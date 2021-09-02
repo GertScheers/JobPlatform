@@ -21,10 +21,13 @@ class MyProfileFragment : Fragment() {
     private lateinit var _binding: FragmentMyProfileBinding
     private lateinit var user: User
 
+    private val myProfileViewModel: MyProfileViewModel by viewModels {
+        MyProfileViewModelFactory((requireActivity().application as JobHuntApplication).userRepository)
+    }
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +36,23 @@ class MyProfileFragment : Fragment() {
         _binding = FragmentMyProfileBinding.inflate(inflater, container, false)
         user = User(0, "hello", "there", "TestCompany", "TestCity", null, 1, "", "testEmail", "")
 
+        myProfileViewModel.candidates.observe(viewLifecycleOwner) { candidates ->
+            candidates.let {
+                if (it.isNotEmpty()) {
+                    user = it.first()
+                    binding.tvDisplayName.text = user.displayName
+                    binding.tvCity.text = user.city
+                    binding.tvEmail.text = user.email
+                }
+            }
+        }
+
         binding.fabEditProfile.setOnClickListener {
-            findNavController().navigate(MyProfileFragmentDirections.actionNavMyProfileToNavRegister(user))
+            findNavController().navigate(
+                MyProfileFragmentDirections.actionNavMyProfileToNavRegister(
+                    user
+                )
+            )
         }
 
         return _binding.root

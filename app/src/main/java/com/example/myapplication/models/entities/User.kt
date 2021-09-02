@@ -9,14 +9,14 @@ import java.util.*
 @Entity(tableName = "job_platform_users")
 data class User(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = "first_name") val firstName: String,
-    @ColumnInfo(name = "last_name") val lastName: String,
+    @ColumnInfo(name = "first_name") var firstName: String,
+    @ColumnInfo(name = "last_name") var lastName: String,
     @ColumnInfo(name = "company_name") val companyName: String,
     @ColumnInfo val city: String,
     @ColumnInfo(name = "date_of_birth") val dateOfBirth: Long?,
     @ColumnInfo val type: Int,
     @ColumnInfo val resume: String,
-    @ColumnInfo val email: String,
+    @ColumnInfo var email: String,
     @ColumnInfo val password: String,
 ) : Parcelable {
     @Ignore

@@ -20,7 +20,7 @@ import com.example.myapplication.ui.profile.ProfileDetailsFragmentArgs
 class RegisterFragment : Fragment() {
 
     private lateinit var _binding: FragmentRegisterBinding
-    private val profile: User? = null
+    private var profile: User? = null
 
     private val mRegisterViewModel: RegisterViewModel by viewModels {
         RegisterViewModelFactory((requireActivity().application as JobHuntApplication).userRepository)
@@ -113,21 +113,21 @@ class RegisterFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                TextUtils.isEmpty(password) -> {
+                TextUtils.isEmpty(password) && profile == null -> {
                     Toast.makeText(
                         requireActivity(),
                         resources.getString(R.string.err_msg_enter_password),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                TextUtils.isEmpty(confirmPassword) -> {
+                TextUtils.isEmpty(confirmPassword) && profile == null -> {
                     Toast.makeText(
                         requireActivity(),
                         resources.getString(R.string.err_msg_confirm_password),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                password != confirmPassword -> {
+                password != confirmPassword && profile == null -> {
                     Toast.makeText(
                         requireActivity(),
                         resources.getString(R.string.err_msg_passwords_no_match),
@@ -135,25 +135,40 @@ class RegisterFragment : Fragment() {
                     ).show()
                 }
                 else -> {
-                    val user = User(
-                        0,
-                        firstName,
-                        lastName,
-                        companyName,
-                        "",
-                        null,
-                        userType,
-                        "",
-                        email,
-                        password
-                    )
+                    if (profile != null) {
+                        profile!!.lastName = binding.etLastName.text.toString()
+                        profile!!.firstName = binding.etFirstName.text.toString()
+                        profile!!.email = binding.etEmail.text.toString()
 
-                    mRegisterViewModel.insert(user)
-                    Toast.makeText(
-                        requireActivity(),
-                        "Registered successfully!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        mRegisterViewModel.insert(profile!!)
+
+                        Toast.makeText(
+                            requireActivity(),
+                            "Changes saved!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        val user = User(
+                            0,
+                            firstName,
+                            lastName,
+                            companyName,
+                            "",
+                            null,
+                            userType,
+                            "",
+                            email,
+                            password
+                        )
+
+                        mRegisterViewModel.insert(user)
+
+                        Toast.makeText(
+                            requireActivity(),
+                            "Registered successfully!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
 
                     findNavController().popBackStack()
                 }
@@ -179,7 +194,7 @@ class RegisterFragment : Fragment() {
                 .load(R.mipmap.ic_launcher)
                 .circleCrop()
                 .into(binding.ivProfilePicture)
-
+            profile = it
         } ?: run {
             Glide.with(this)
                 .load(R.mipmap.ic_launcher)
