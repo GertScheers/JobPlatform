@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
@@ -18,7 +19,7 @@ import com.example.myapplication.ui.register.RegisterViewModelFactory
 
 class MyProfileFragment : Fragment() {
     private lateinit var _binding: FragmentMyProfileBinding
-private lateinit var user: User
+    private lateinit var user: User
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -30,14 +31,17 @@ private lateinit var user: User
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMyProfileBinding.inflate(inflater, container, false)
-        user = User(0, "hello", "there", "", "TestCity", null, 0, "", "testEmail", "")
+        user = User(0, "hello", "there", "TestCompany", "TestCity", null, 1, "", "testEmail", "")
+
+        binding.fabEditProfile.setOnClickListener {
+            findNavController().navigate(MyProfileFragmentDirections.actionNavMyProfileToNavRegister(user))
+        }
+
         return _binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //val args: MyProfileFragmentArgs by navArgs()
 
         Glide.with(this)
             .load(R.mipmap.ic_launcher)

@@ -9,9 +9,6 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
     fun insert(user: User) = viewModelScope.launch {
         repository.insertUser(user)
     }
-
-    val allCompaniesList: LiveData<List<User>> = repository.allCompanies.asLiveData()
-    val allCandidatesList: LiveData<List<User>> = repository.allCandidates.asLiveData()
 }
 
 class RegisterViewModelFactory(private val repository: UserRepository) : ViewModelProvider.Factory {

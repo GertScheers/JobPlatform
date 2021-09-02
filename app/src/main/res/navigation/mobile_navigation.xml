@@ -30,9 +30,9 @@
         android:name="com.example.myapplication.ui.profile.MyProfileFragment"
         android:label="My Profile"
         tools:layout="@layout/fragment_my_profile">
-        <argument
-            android:name="myProfile"
-            app:argType="com.example.myapplication.models.entities.User"/>
+        <action
+            android:id="@+id/action_nav_my_profile_to_nav_register"
+            app:destination="@id/nav_register" />
     </fragment>
 
     <fragment
@@ -58,5 +58,11 @@
         android:id="@+id/nav_register"
         android:name="com.example.myapplication.ui.register.RegisterFragment"
         android:label="@string/register"
-        tools:layout="@layout/fragment_register"/>
+        tools:layout="@layout/fragment_register">
+        <argument
+            android:name="myProfile"
+            app:argType="com.example.myapplication.models.entities.User"
+            app:nullable="true"
+            android:defaultValue="@null"/>
+    </fragment>
 </navigation>

@@ -9,15 +9,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.application.JobHuntApplication
 import com.example.myapplication.databinding.FragmentRegisterBinding
 import com.example.myapplication.models.entities.User
+import com.example.myapplication.ui.profile.ProfileDetailsFragmentArgs
 
 class RegisterFragment : Fragment() {
 
     private lateinit var _binding: FragmentRegisterBinding
+    private val profile: User? = null
 
     private val mRegisterViewModel: RegisterViewModel by viewModels {
         RegisterViewModelFactory((requireActivity().application as JobHuntApplication).userRepository)
@@ -37,11 +40,6 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Glide.with(this)
-            .load(R.mipmap.ic_launcher)
-            .circleCrop()
-            .into(binding.ivProfilePicture)
-
 
         binding.radioCandidate.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
@@ -160,6 +158,36 @@ class RegisterFragment : Fragment() {
                     findNavController().popBackStack()
                 }
             }
+        }
+
+        val args: RegisterFragmentArgs by navArgs()
+
+        args.myProfile?.let {
+            binding.btnRegister.text = resources.getText(R.string.action_save_changes)
+            binding.etFirstName.setText(it.firstName)
+            binding.etLastName.setText(it.lastName)
+            binding.etCompanyName.setText(it.companyName)
+            binding.etEmail.setText(it.email)
+            binding.tilPassword.visibility = View.GONE
+            binding.tilConfirmPassword.visibility = View.GONE
+            if (it.type == 0)
+                binding.rgUserType.check(binding.radioCandidate.id)
+            else
+                binding.rgUserType.check(binding.radioCompany.id)
+
+            Glide.with(this)
+                .load(R.mipmap.ic_launcher)
+                .circleCrop()
+                .into(binding.ivProfilePicture)
+
+        } ?: run {
+            Glide.with(this)
+                .load(R.mipmap.ic_launcher)
+                .circleCrop()
+                .into(binding.ivProfilePicture)
+
+            binding.btnRegister.text =
+                resources.getText(R.string.action_register)
         }
     }
 }
