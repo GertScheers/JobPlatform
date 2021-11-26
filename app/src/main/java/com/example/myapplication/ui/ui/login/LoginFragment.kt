@@ -1,7 +1,6 @@
 package com.example.myapplication.ui.ui.login
 
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import android.os.Bundle
@@ -14,13 +13,15 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.FragmentLoginBinding
 
 import com.example.myapplication.R
 import com.example.myapplication.application.JobHuntApplication
-import com.example.myapplication.ui.connect.ConnectViewModel
-import com.example.myapplication.ui.connect.ConnectViewModelFactory
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class LoginFragment : Fragment() {
 
@@ -67,7 +68,7 @@ class LoginFragment : Fragment() {
                 }
             })
 
-            loginViewModel.loginResult.observe(viewLifecycleOwner,
+        loginViewModel.loginResult.observe(viewLifecycleOwner,
             Observer { loginResult ->
                 Log.i("OBS", "starts")
                 loginResult ?: return@Observer
@@ -103,10 +104,12 @@ class LoginFragment : Fragment() {
         passwordEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 findNavController().navigate(LoginFragmentDirections.actionNavLoginToNavHome())
-                loginViewModel.login(
-                    usernameEditText.text.toString(),
-                    passwordEditText.text.toString()
-                )
+                runBlocking {
+                    loginViewModel.login(
+                        usernameEditText.text.toString(),
+                        passwordEditText.text.toString()
+                    )
+                }
             }
             false
         }
@@ -114,20 +117,24 @@ class LoginFragment : Fragment() {
         loginButton.setOnClickListener {
             loadingProgressBar.visibility = View.VISIBLE
 
-            loginViewModel.login(
-                usernameEditText.text.toString(),
-                passwordEditText.text.toString()
-            )
+            lifecycleScope.launch {
+                val result = loginViewModel.login(
+                    usernameEditText.text.toString(),
+                    passwordEditText.text.toString()
+                )
 
-            if (true)
-                findNavController().navigate(LoginFragmentDirections.actionNavLoginToNavHome())
-            else {
-                Toast.makeText(
-                    requireActivity(),
-                    "Something went wrong!",
-                    Toast.LENGTH_LONG).show()
+                delay(1500)
+
+                if (result)
+                    findNavController().navigate(LoginFragmentDirections.actionNavLoginToNavHome())
+                else {
+                    Toast.makeText(
+                        requireActivity(),
+                        "Something went wrong!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
-
         }
 
         registerButton.setOnClickListener {

@@ -14,7 +14,8 @@ import com.example.myapplication.R
 import com.example.myapplication.application.JobHuntApplication
 import com.example.myapplication.databinding.FragmentConnectBinding
 import com.example.myapplication.models.entities.User
-import com.example.myapplication.ui.adapters.CandidateAdapter
+import com.example.myapplication.models.entities.UserType
+import com.example.myapplication.ui.adapters.ProfilesAdapter
 
 class ConnectFragment : Fragment() {
 
@@ -37,17 +38,35 @@ class ConnectFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding.rvCandidates.layoutManager = GridLayoutManager(requireActivity(), 2)
-        val candidatesAdapter = CandidateAdapter(this)
+        _binding.rvProfiles.layoutManager = GridLayoutManager(requireActivity(), 2)
 
-        _binding.rvCandidates.adapter = candidatesAdapter
-        _binding.rvCandidates.addItemDecoration(MarginItemDecoration(
-            resources.getDimension(R.dimen._5sdp).toInt()))
+        val profilesAdapter = ProfilesAdapter(this)
 
-        connectViewModel.candidates.observe(viewLifecycleOwner) { candidates ->
-            candidates.let {
-                if (it.isNotEmpty()) {
-                    candidatesAdapter.candidatesList(it)
+        _binding.rvProfiles.adapter = profilesAdapter
+        _binding.rvProfiles.addItemDecoration(
+            MarginItemDecoration(
+                resources.getDimension(R.dimen._5sdp).toInt()
+            )
+        )
+
+        connectViewModel.user.observe(viewLifecycleOwner) { user ->
+            if (user == null) return@observe
+
+            if (user.userType == UserType.Company.ordinal) {
+                connectViewModel.candidates.observe(viewLifecycleOwner) { candidates ->
+                    candidates.let {
+                        if (it.isNotEmpty()) {
+                            profilesAdapter.profilesList(it)
+                        }
+                    }
+                }
+            } else {
+                connectViewModel.companies.observe(viewLifecycleOwner) { companies ->
+                    companies.let {
+                        if (it.isNotEmpty()) {
+                            profilesAdapter.profilesList(it)
+                        }
+                    }
                 }
             }
         }
@@ -59,13 +78,15 @@ class ConnectFragment : Fragment() {
 }
 
 class MarginItemDecoration(private val spaceHeight: Int) : RecyclerView.ItemDecoration() {
-    override fun getItemOffsets(outRect: Rect, view: View,
-                                parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect, view: View,
+        parent: RecyclerView, state: RecyclerView.State
+    ) {
         with(outRect) {
             if (parent.getChildAdapterPosition(view) == 0 || parent.getChildAdapterPosition(view) == 1) {
                 top = spaceHeight
             }
-            left =  spaceHeight
+            left = spaceHeight
             right = spaceHeight
             bottom = spaceHeight
         }

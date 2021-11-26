@@ -3,9 +3,10 @@ package com.example.myapplication.models.database.user
 import android.util.Log
 import androidx.annotation.WorkerThread
 import com.example.myapplication.models.entities.User
-import com.example.myapplication.ui.data.Result
 import com.example.myapplication.ui.data.model.LoggedInUser
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class UserRepository(private val userDao: UserDao) {
     @WorkerThread
@@ -16,7 +17,7 @@ class UserRepository(private val userDao: UserDao) {
     @WorkerThread
     fun doLogin(email: String, password: String): User? {
         return try {
-            userDao.login(email, password)?.first()
+            userDao.login(email.lowercase(), password)?.first()
         } catch (e: Exception){
             Log.e("ERR", e.printStackTrace().toString())
             null
@@ -31,22 +32,15 @@ class UserRepository(private val userDao: UserDao) {
     val allCompanies: Flow<List<User>> = userDao.getAllCompanies()
     val allCandidates: Flow<List<User>> = userDao.getAllCandidates()
 
-
-    // in-memory cache of the loggedInUser object
-    var user: LoggedInUser? = null
-        private set
+    private val _currentUser = MutableStateFlow<LoggedInUser?>(null)
+    val currentUserFlow: StateFlow<LoggedInUser?> = _currentUser
 
     val isLoggedIn: Boolean
-        get() = user != null
+        get() = _currentUser.value != null
 
-    init {
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
-        user = null
-    }
 
     fun logout() {
-        user = null
+        _currentUser.value = null
     }
 
     fun login(username: String, password: String): LoggedInUser? {
@@ -57,7 +51,7 @@ class UserRepository(private val userDao: UserDao) {
 
         if (result != null) {
             Log.i("LOGIN", "Result not null")
-            val loggedInUser = LoggedInUser(result.id.toString(), result.displayName)
+            val loggedInUser = LoggedInUser(result.id.toString(), result.displayName, result.type)
             setLoggedInUser(loggedInUser)
             Log.i("LOGIN", "Returning user")
             return loggedInUser
@@ -67,7 +61,7 @@ class UserRepository(private val userDao: UserDao) {
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {
-        this.user = loggedInUser
+        _currentUser.value = loggedInUser
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }

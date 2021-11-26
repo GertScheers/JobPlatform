@@ -6,17 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.application.JobHuntApplication
 import com.example.myapplication.databinding.FragmentMyProfileBinding
-import com.example.myapplication.databinding.FragmentRegisterBinding
 import com.example.myapplication.models.entities.User
-import com.example.myapplication.ui.register.RegisterViewModel
-import com.example.myapplication.ui.register.RegisterViewModelFactory
 
 class MyProfileFragment : Fragment() {
     private lateinit var _binding: FragmentMyProfileBinding

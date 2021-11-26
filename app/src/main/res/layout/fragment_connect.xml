@@ -7,7 +7,7 @@
     tools:context=".ui.connect.ConnectFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_candidates"
+        android:id="@+id/rv_profiles"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

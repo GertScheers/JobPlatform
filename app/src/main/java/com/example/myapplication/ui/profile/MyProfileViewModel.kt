@@ -14,8 +14,7 @@ import kotlinx.coroutines.withContext
 import java.lang.IllegalArgumentException
 
 class MyProfileViewModel(private val userRepository: UserRepository) : ViewModel() {
-    val candidates: LiveData<List<User>> = userRepository.allCandidates.asLiveData()
-    val user: LoggedInUser? = userRepository.user
+    val user: LoggedInUser? = userRepository.currentUserFlow.value
 
     private val _fullUser = MutableLiveData<User>()
     var fullUser: LiveData<User> = _fullUser

@@ -8,10 +8,11 @@ import com.example.myapplication.databinding.ItemCandidateLayoutBinding
 import com.example.myapplication.models.entities.User
 import com.example.myapplication.ui.connect.ConnectFragment
 
-class CandidateAdapter(private val fragment: Fragment) :
-    RecyclerView.Adapter<CandidateAdapter.ViewHolder>() {
 
-    private var candidates: List<User> = listOf()
+class ProfilesAdapter(private val fragment: Fragment) :
+    RecyclerView.Adapter<ProfilesAdapter.ViewHolder>() {
+
+    private var profiles: List<User> = listOf()
 
     class ViewHolder(view: ItemCandidateLayoutBinding) : RecyclerView.ViewHolder(view.root) {
         val tvName = view.tvUserName
@@ -30,7 +31,7 @@ class CandidateAdapter(private val fragment: Fragment) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //TODO Implement setting the image + click handler
-        val user = candidates[position]
+        val user = profiles[position]
         holder.tvName.text = user.displayName
 
         holder.itemView.setOnClickListener {
@@ -40,11 +41,11 @@ class CandidateAdapter(private val fragment: Fragment) :
     }
 
     override fun getItemCount(): Int {
-        return candidates.size
+        return profiles.size
     }
 
-    fun candidatesList(list: List<User>) {
-        candidates = list
+    fun profilesList(list: List<User>) {
+        profiles = list
         notifyDataSetChanged()
     }
 }

@@ -3,11 +3,13 @@ package com.example.myapplication.ui.connect
 import androidx.lifecycle.*
 import com.example.myapplication.models.database.user.UserRepository
 import com.example.myapplication.models.entities.User
+import com.example.myapplication.ui.data.model.LoggedInUser
 import java.lang.IllegalArgumentException
 
 class ConnectViewModel(private val userRepository: UserRepository) : ViewModel() {
     val candidates: LiveData<List<User>> = userRepository.allCandidates.asLiveData()
     val companies: LiveData<List<User>> = userRepository.allCompanies.asLiveData()
+    val user: LiveData<LoggedInUser?> = userRepository.currentUserFlow.asLiveData()
 }
 
 class ConnectViewModelFactory(private val userRepository: UserRepository) : ViewModelProvider.Factory {
