@@ -13,5 +13,7 @@ data class JobOffer(
     @ColumnInfo(name = "company_id") val companyId: Int,
     @ColumnInfo val city: String,
     @ColumnInfo val address: String,
-    @ColumnInfo val closed: Boolean
+    @ColumnInfo val closed: Boolean,
+    @ColumnInfo val description: String,
+    @ColumnInfo val title: String
 ): Parcelable

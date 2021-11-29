@@ -47,7 +47,7 @@ class MyProfileFragment : Fragment() {
                 binding.tvEmail.text = user?.email
             })
 
-        myProfileViewModel.getUser(myProfileViewModel.user?.userId ?: "")
+        myProfileViewModel.getUser(myProfileViewModel.user!!.userId)
 
         return _binding.root
     }

@@ -11,7 +11,7 @@ data class Interview(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "candidate_id") val candidateId: Int,
     @ColumnInfo(name = "company_id") val companyId: Int,
-    @ColumnInfo(name = "job_offer_id") val jobOfferId: Int,
+    @ColumnInfo(name = "job_offer_id", defaultValue = "0") val jobOfferId: Int,
     @ColumnInfo(defaultValue = "0") val status: Int,
     @ColumnInfo val feedBack: String?
     ) : Parcelable

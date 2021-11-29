@@ -25,7 +25,7 @@ class UserRepository(private val userDao: UserDao) {
     }
 
     @WorkerThread
-    fun getUser(id: String) : User? {
+    fun getUser(id: Int) : User? {
         return userDao.getUser(id)
     }
 
@@ -51,7 +51,7 @@ class UserRepository(private val userDao: UserDao) {
 
         if (result != null) {
             Log.i("LOGIN", "Result not null")
-            val loggedInUser = LoggedInUser(result.id.toString(), result.displayName, result.type)
+            val loggedInUser = LoggedInUser(result.id, result.displayName, result.type)
             setLoggedInUser(loggedInUser)
             Log.i("LOGIN", "Returning user")
             return loggedInUser

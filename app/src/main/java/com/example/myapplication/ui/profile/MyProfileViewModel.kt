@@ -19,7 +19,7 @@ class MyProfileViewModel(private val userRepository: UserRepository) : ViewModel
     private val _fullUser = MutableLiveData<User>()
     var fullUser: LiveData<User> = _fullUser
 
-    fun getUser(id: String) {
+    fun getUser(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = userRepository.getUser(id)
             withContext(Dispatchers.Main) {

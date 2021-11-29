@@ -22,5 +22,5 @@ interface UserDao {
     fun getAllCandidates(): Flow<List<User>>
 
     @Query("SELECT * FROM JOB_PLATFORM_USERS WHERE id=:id")
-    fun getUser(id: String) : User?
+    fun getUser(id: Int) : User?
 }
